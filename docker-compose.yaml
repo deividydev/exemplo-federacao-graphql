@@ -1,0 +1,24 @@
+# docker-compose.yml
+version: "3.9"
+
+services:
+  products:
+    build: ./SubgraphProducts
+    ports:
+      - "5000:80"
+
+  users:
+    build: ./SubgraphUsers
+    ports:
+      - "5001:80"
+
+  router:
+    image: ghcr.io/apollographql/router:v1.41.1
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./supergraph:/dist
+    command: ["--supergraph", "/dist/supergraph.graphql"]
+    depends_on:
+      - products
+      - users
