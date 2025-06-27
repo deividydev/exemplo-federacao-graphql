@@ -17,8 +17,12 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - ./supergraph:/dist
-    command: ["--supergraph", "/dist/supergraph.graphql"]
+      - ./Supergraph/supergraph.graphql:/dist/schema/supergraph.graphql
+      - ./Supergraph/router-config.yaml:/dist/schema/router-config.yaml
+    command: > 
+      --supergraph /dist/schema/supergraph.graphql 
+      --config /dist/schema/router-config.yaml
+      --listen 0.0.0.0:4000
     depends_on:
       - products
       - users

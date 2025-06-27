@@ -4,7 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<UserQueries>()
+    .AddQueryType(d => d.Name("Query"))
+    .AddTypeExtension<UserQueries>()
     .AddType<User>()
     .AddApolloFederation();
 
